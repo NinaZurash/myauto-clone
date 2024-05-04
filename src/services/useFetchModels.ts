@@ -7,8 +7,10 @@ import { SITE_ROUTES } from "@/routes/site_routes";
 export function useFetchModels() {
   const { toast } = useToast();
   return useMutation({
-    mutationFn: async () => {
-      const response = await fetch(`${SITE_ROUTES.base}/api/models`);
+    mutationFn: async (payload: { manId: string }) => {
+      const response = await fetch(
+        `${SITE_ROUTES.base}/api/models?man_id=${payload.manId}`
+      );
       return response.json();
     },
     onError: () => {
