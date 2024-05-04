@@ -7,9 +7,10 @@ export async function GET(req: NextRequest) {
   const periodFilter = query.get("Period");
   const manFilter = query.get("Mans");
   const catFilter = query.get("Cats");
+  const forRent = query.get("ForRent");
   try {
     const response = await fetch(
-      `${API_ROUTES.products}?SortOrder=${sortOrder}&Period=${periodFilter}&Mans=${manFilter}&Cats=${catFilter}`
+      `${API_ROUTES.products}?SortOrder=${sortOrder}&Period=${periodFilter}&Mans=${manFilter}&Cats=${catFilter}&ForRent=${forRent}`
     );
 
     const data = await response.json();

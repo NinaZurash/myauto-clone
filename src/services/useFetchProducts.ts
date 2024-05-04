@@ -12,9 +12,10 @@ export function useFetchProducts() {
       periodFilter: string;
       manFilter: string;
       catFilter: string;
+      forRent: number;
     }) => {
       const response = await fetch(
-        `${SITE_ROUTES.base}/api/products?SortOrder=${payload.sortOrder}&Period=${payload.periodFilter}&Mans=${payload.manFilter}&Cats=${payload.catFilter}`
+        `${SITE_ROUTES.base}/api/products?SortOrder=${payload.sortOrder}&Period=${payload.periodFilter}&Mans=${payload.manFilter}&Cats=${payload.catFilter}&ForRent=${payload.forRent}`
       );
 
       return response.json();

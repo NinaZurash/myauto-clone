@@ -147,6 +147,22 @@ export type Category = {
   vehicle_types: number[];
 };
 
+export type Model = {
+  model_id: string;
+  man_id: string;
+  model_name: string;
+  model_group: string;
+  sort_order: number;
+  cat_man_id: string;
+  cat_model_id: string;
+  cat_modif_id: string;
+  is_car: boolean;
+  is_moto: boolean;
+  is_spec: boolean;
+  show_in_salons: string;
+  shown_in_slider: string;
+};
+
 type ProductsContextType = {
   products: Product[];
   isLoading: boolean;
@@ -161,6 +177,9 @@ type ProductsContextType = {
   setManFilter: (value: string) => void;
   setCatFilter: (value: string) => void;
   totalItems: number;
+  models: Model[];
+  forRent: number;
+  setForRent: (value: number) => void;
 };
 
 const ProductsContext = createContext<ProductsContextType>({
@@ -177,6 +196,9 @@ const ProductsContext = createContext<ProductsContextType>({
   setManFilter: () => {},
   setCatFilter: () => {},
   totalItems: 0,
+  models: [],
+  forRent: 0,
+  setForRent: () => {},
 });
 
 type Props = { children: ReactNode };
@@ -189,6 +211,8 @@ export const ProductsProvider = ({ children }: Props) => {
   const [catFilter, setCatFilter] = useState<string>("");
   const [categories, setCategories] = useState<Category[]>([]);
   const [manufacturers, setManufacturers] = useState<Manufacturer[]>([]);
+  const [models, setModels] = useState<Model[]>([]);
+  const [forRent, setForRent] = useState<number>(0);
   const { mutateAsync, isPending } = useFetchProducts();
   const { mutateAsync: fetchCategories } = useFetchCategories();
   const { mutateAsync: fetchManufacturers } = useFetchManufacturers();
@@ -216,12 +240,13 @@ export const ProductsProvider = ({ children }: Props) => {
         periodFilter,
         manFilter,
         catFilter,
+        forRent,
       });
       setTotalItems(data.data.meta.total);
       setProducts(data.data.items);
     };
     fetchProducts();
-  }, [sortOrder, periodFilter, manFilter, catFilter]);
+  }, [sortOrder, periodFilter, manFilter, catFilter, forRent]);
 
   const values = {
     products,
@@ -237,6 +262,9 @@ export const ProductsProvider = ({ children }: Props) => {
     setManFilter,
     setCatFilter,
     totalItems,
+    models,
+    forRent,
+    setForRent,
   };
 
   return (
