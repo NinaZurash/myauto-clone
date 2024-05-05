@@ -1,15 +1,10 @@
 "use client";
 
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+
 import { useFetchCategories } from "@/services/useFetchCategories";
 import { useFetchManufacturers } from "@/services/useFetchManufacturers";
 import { useFetchProducts } from "@/services/useFetchProducts";
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
 
 export type Product = {
   car_id: number;
@@ -177,7 +172,6 @@ type ProductsContextType = {
   setManFilter: (value: string) => void;
   setCatFilter: (value: string) => void;
   totalItems: number;
-  models: Model[];
   forRent: number;
   setForRent: (value: number) => void;
   priceFromTo: [number | "", number | ""];
@@ -198,7 +192,6 @@ const ProductsContext = createContext<ProductsContextType>({
   setManFilter: () => {},
   setCatFilter: () => {},
   totalItems: 0,
-  models: [],
   forRent: 0,
   setForRent: () => {},
   priceFromTo: [0, ""],
@@ -215,16 +208,12 @@ export const ProductsProvider = ({ children }: Props) => {
   const [catFilter, setCatFilter] = useState<string>("");
   const [categories, setCategories] = useState<Category[]>([]);
   const [manufacturers, setManufacturers] = useState<Manufacturer[]>([]);
-  const [models, setModels] = useState<Model[]>([]);
   const [forRent, setForRent] = useState<number>(0);
   const { mutateAsync, isPending } = useFetchProducts();
   const { mutateAsync: fetchCategories } = useFetchCategories();
   const { mutateAsync: fetchManufacturers } = useFetchManufacturers();
   const [totalItems, setTotalItems] = useState<number>(0);
-  const [priceFromTo, setPriceFromTo] = useState<[number | "", number | ""]>([
-    0,
-    "",
-  ]);
+  const [priceFromTo, setPriceFromTo] = useState<[number | "", number | ""]>([0, ""]);
 
   useEffect(() => {
     const fetchAllCategories = async () => {
@@ -261,28 +250,23 @@ export const ProductsProvider = ({ children }: Props) => {
     products,
     isLoading: isPending,
     periodFilter,
-    setPeriodFilter,
     sortOrder,
-    setSortOrder,
     categories,
     manufacturers,
     manFilter,
     catFilter,
+    forRent,
+    priceFromTo,
+    totalItems,
     setManFilter,
     setCatFilter,
-    totalItems,
-    models,
-    forRent,
+    setPeriodFilter,
+    setSortOrder,
     setForRent,
-    priceFromTo,
     setPriceFromTo,
   };
 
-  return (
-    <ProductsContext.Provider value={values}>
-      {children}
-    </ProductsContext.Provider>
-  );
+  return <ProductsContext.Provider value={values}>{children}</ProductsContext.Provider>;
 };
 
 export const useProducts = () => {

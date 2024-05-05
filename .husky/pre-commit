@@ -3,3 +3,4 @@
 
 rm -rf .next
 npx lint-staged
+npm run lint

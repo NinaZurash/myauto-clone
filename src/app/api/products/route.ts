@@ -1,5 +1,6 @@
+import { NextResponse, type NextRequest } from "next/server";
+
 import { API_ROUTES } from "@/routes/api-routes";
-import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   const query = req.nextUrl.searchParams;
@@ -13,7 +14,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const response = await fetch(
-      `${API_ROUTES.products}?SortOrder=${sortOrder}&Period=${periodFilter}&Mans=${manFilter}&Cats=${catFilter}&ForRent=${forRent}&PriceFrom=${priceFrom}&PriceTo=${priceTo}`
+      `${API_ROUTES.products}?SortOrder=${sortOrder}&Period=${periodFilter}&Mans=${manFilter}&Cats=${catFilter}&ForRent=${forRent}&PriceFrom=${priceFrom}&PriceTo=${priceTo}`,
     );
 
     const data = await response.json();
@@ -23,7 +24,7 @@ export async function GET(req: NextRequest) {
           data: data.data,
           message: "Products fetched successfully",
         },
-        { status: 200 }
+        { status: 200 },
       );
     } else {
       return NextResponse.json(
@@ -31,7 +32,7 @@ export async function GET(req: NextRequest) {
           items: [],
           message: "Products not found",
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
   } catch {
@@ -41,7 +42,7 @@ export async function GET(req: NextRequest) {
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

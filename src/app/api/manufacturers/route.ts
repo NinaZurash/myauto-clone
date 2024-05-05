@@ -1,5 +1,6 @@
-import { API_ROUTES } from "@/routes/api-routes";
 import { NextResponse } from "next/server";
+
+import { API_ROUTES } from "@/routes/api-routes";
 
 export async function GET() {
   try {
@@ -13,7 +14,7 @@ export async function GET() {
           data: data,
           message: "manufacturers fetched successfully",
         },
-        { status: 200 }
+        { status: 200 },
       );
     } else {
       return NextResponse.json(
@@ -21,7 +22,7 @@ export async function GET() {
           data: [],
           message: "manufacturers not found",
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
   } catch {
@@ -31,7 +32,7 @@ export async function GET() {
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

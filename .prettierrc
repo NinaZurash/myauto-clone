@@ -18,6 +18,7 @@
     "^@/types/(.*)$",
     "^@/utils/(.*)$",
     "^@/app/(.*)$",
+    "^@/routes/(.*)$",
     "^@/components/(.*)$",
     "^@/providers/(.*)$",
     "^@/resources/(.*)$",

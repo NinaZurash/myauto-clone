@@ -1,5 +1,6 @@
+import { NextResponse, type NextRequest } from "next/server";
+
 import { API_ROUTES } from "@/routes/api-routes";
-import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   const query = req.nextUrl.searchParams;
@@ -16,7 +17,7 @@ export async function GET(req: NextRequest) {
           data: data,
           message: "Models fetched successfully",
         },
-        { status: 200 }
+        { status: 200 },
       );
     } else {
       return NextResponse.json(
@@ -24,7 +25,7 @@ export async function GET(req: NextRequest) {
           data: [],
           message: "models not found",
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
   } catch {
@@ -34,7 +35,7 @@ export async function GET(req: NextRequest) {
       },
       {
         status: 500,
-      }
+      },
     );
   }
 }

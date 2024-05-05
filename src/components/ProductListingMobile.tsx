@@ -5,16 +5,14 @@ import { useProducts } from "@/providers/ProductsProvider";
 import CardMobile from "./CardMobile";
 
 export default function ProductsListingMobile() {
-  const { products, isLoading, totalItems } = useProducts();
+  const { products, isLoading } = useProducts();
   if (isLoading) {
     return <div className="lg:hidden">Loading...</div>;
   }
   return (
-    <div className="lg:hidden flex flex-1 flex-col lg:gap-4">
+    <div className="flex flex-1 flex-col lg:hidden lg:gap-4">
       {products.length > 0 &&
-        products.map((product) => (
-          <CardMobile key={product.car_id} product={product} />
-        ))}
+        products.map((product) => <CardMobile key={product.car_id} product={product} />)}
     </div>
   );
 }

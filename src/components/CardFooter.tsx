@@ -1,5 +1,6 @@
 import { Icons } from "@/Icons";
-import { Product } from "@/providers/ProductsProvider";
+
+import { type Product } from "@/providers/ProductsProvider";
 
 export default function CardFooter({ product }: { product: Product }) {
   const placedTime = new Date(product.order_date);
@@ -18,7 +19,7 @@ export default function CardFooter({ product }: { product: Product }) {
   }
   return (
     <div className="flex w-full justify-between">
-      <div className="flex gap-2 items-center">
+      <div className="flex items-center gap-2">
         {Icons.vipPlus}
         <span className="text-xs text-gray-400">
           {product.views} ნახვა • {timeAgoText}

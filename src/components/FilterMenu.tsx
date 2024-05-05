@@ -1,8 +1,8 @@
 "use client";
 
 import { Icons } from "@/Icons";
-import { Button } from "./ui/button";
-import { ReactElement, useState } from "react";
+
+import { useState, type ReactElement } from "react";
 
 import {
   Select,
@@ -11,11 +11,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { cn } from "@/lib/utils";
 import { useProducts } from "@/providers/ProductsProvider";
-import { Input } from "./ui/input";
+import { cn } from "@/lib/utils";
+
 import FilterPrice from "./FilterPrice";
-import { useFetchProducts } from "@/services/useFetchProducts";
+import { Button } from "./ui/button";
 
 const filterButtons = [Icons.car, Icons.tractor, Icons.motorcycle];
 
@@ -34,9 +34,7 @@ export default function FilterMenu() {
   const [selectedForRent, setSelectedForRent] = useState(forRent.toString());
   const [selectedManufacturer, setSelectedManufacturer] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [priceFromToLocal, setPriceFromToLocal] = useState<
-    [number | "", number | ""]
-  >([0, ""]);
+  const [priceFromToLocal, setPriceFromToLocal] = useState<[number | "", number | ""]>([0, ""]);
 
   const applyFilters = () => {
     setForRent(Number(selectedForRent));
@@ -46,17 +44,13 @@ export default function FilterMenu() {
   };
 
   return (
-    <div className="hidden lg:block text-xs rounded-lg flex-col border h-[525px] w-[250px] rounded-t-xl overflow-hidden bg-white">
+    <div className="hidden h-[525px] w-[250px] flex-col overflow-hidden rounded-lg rounded-t-xl border bg-white text-xs lg:block">
       <div className="flex w-full items-center">
         {filterButtons.map((icon, i) => (
-          <AutoButtons
-            key={i}
-            selected={i === 0 ? true : undefined}
-            icon={icon}
-          />
+          <AutoButtons key={i} selected={i === 0 ? true : undefined} icon={icon} />
         ))}
       </div>
-      <div className="border-y p-6 flex flex-col gap-4">
+      <div className="flex flex-col gap-4 border-y p-6">
         <div className="flex flex-col gap-2">
           <span>გარირების ტიპი</span>
           <Select
@@ -102,10 +96,7 @@ export default function FilterMenu() {
             </SelectTrigger>
             <SelectContent>
               {categories.map((category) => (
-                <SelectItem
-                  key={category.category_id}
-                  value={category.category_id + ""}
-                >
+                <SelectItem key={category.category_id} value={category.category_id + ""}>
                   {category.title}
                 </SelectItem>
               ))}
@@ -113,15 +104,9 @@ export default function FilterMenu() {
           </Select>
         </div>
       </div>
-      <FilterPrice
-        priceFromToLocal={priceFromToLocal}
-        setPriceFromToLocal={setPriceFromToLocal}
-      />
-      <div className="flex  py-4 mt-10 bg-white  text-sm border-t flex-col w-full items-center">
-        <Button
-          onClick={applyFilters}
-          className="bg-[#FD4100] hover:bg-[#FD4100] h-8 px-14"
-        >
+      <FilterPrice priceFromToLocal={priceFromToLocal} setPriceFromToLocal={setPriceFromToLocal} />
+      <div className="mt-10  flex w-full flex-col  items-center border-t bg-white py-4 text-sm">
+        <Button onClick={applyFilters} className="h-8 bg-[#FD4100] px-14 hover:bg-[#FD4100]">
           ძებნა 197,963
         </Button>
       </div>
@@ -129,20 +114,14 @@ export default function FilterMenu() {
   );
 }
 
-function AutoButtons({
-  icon,
-  selected,
-}: {
-  icon: ReactElement;
-  selected?: boolean;
-}) {
+function AutoButtons({ icon, selected }: { icon: ReactElement; selected?: boolean }) {
   return (
     <div
       className={cn("flex-1 border-l bg-[#F9F9FB]", {
-        "bg-white border-b-[#FD4100] border-b": selected,
+        "border-b border-b-[#FD4100] bg-white": selected,
       })}
     >
-      <div className="p-4  hover:bg-white cursor-pointer flex justify-center items-center">
+      <div className="flex  cursor-pointer items-center justify-center p-4 hover:bg-white">
         {icon}
       </div>
     </div>
