@@ -5,7 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useProducts } from "@/providers/ProductsProvider";
+import { useProductsContext } from "@/providers/ProductsProvider";
 
 const sortFilters = {
   1: "თარიღი კლებადი",
@@ -16,7 +16,7 @@ const sortFilters = {
   6: "გარბენი ზრდადი",
 };
 export default function SelectSorting() {
-  const { sortOrder, setSortOrder } = useProducts();
+  const { sortOrder, setSortOrder } = useProductsContext();
   return (
     <div>
       <Select

@@ -1,15 +1,16 @@
 import { Icons } from "@/Icons";
-import FilterMenu from "@/components/FilterMenu";
-import MobileDefaultFilters from "@/components/MobileDefaultFilters";
-import ProductListingFilter from "@/components/ProductListingFilter";
-import ProductsListing from "@/components/ProductsListing";
+
+import FilterMenu from "@/components/filters/FilterMenu";
+import MobileDefaultFilters from "@/components/filters/MobileDefaultFilters";
+import ProductListingFilter from "@/components/filters/ProductListingFilter";
+import ProductsListing from "@/components/shared/ProductsListing";
 
 export default function Home() {
   return (
-    <section className="flex flex-col w-full">
+    <section className="flex w-full flex-col">
       <MobileDefaultFilters />
 
-      <div className="text-[#6F7383] hidden lg:flex text-xs  my-6 items-center">
+      <div className="my-6 hidden items-center text-xs  text-[#6F7383] lg:flex">
         <span>მთავარი</span>
         <div>{Icons.rightArrow}</div>
         <span>ძიება</span>

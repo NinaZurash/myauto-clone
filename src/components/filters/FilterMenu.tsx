@@ -11,11 +11,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useProducts } from "@/providers/ProductsProvider";
+import { useProductsContext } from "@/providers/ProductsProvider";
 import { cn } from "@/lib/utils";
 
+import { Button } from "../ui/button";
 import FilterPrice from "./FilterPrice";
-import { Button } from "./ui/button";
 
 const filterButtons = [Icons.car, Icons.tractor, Icons.motorcycle];
 
@@ -28,7 +28,7 @@ export default function FilterMenu() {
     forRent,
     setForRent,
     setPriceFromTo,
-  } = useProducts();
+  } = useProductsContext();
 
   // State variables for storing selected values
   const [selectedForRent, setSelectedForRent] = useState(forRent.toString());

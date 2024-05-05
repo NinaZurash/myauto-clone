@@ -1,6 +1,6 @@
 import { Icons } from "@/Icons";
 
-import { type Product } from "@/providers/ProductsProvider";
+import type { Product } from "@/providers/types";
 
 export default function CardFooter({ product }: { product: Product }) {
   const placedTime = new Date(product.order_date);

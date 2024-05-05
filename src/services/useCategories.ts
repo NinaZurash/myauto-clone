@@ -1,14 +1,16 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
-import { useToast } from "../components/ui/use-toast";
+
 import { SITE_ROUTES } from "@/routes/site_routes";
 
-export function useFetchManufacturers() {
+import { useToast } from "../components/ui/use-toast";
+
+export function useCategories() {
   const { toast } = useToast();
   return useMutation({
     mutationFn: async () => {
-      const response = await fetch(`${SITE_ROUTES.base}/api/manufacturers`);
+      const response = await fetch(`${SITE_ROUTES.base}/api/categories`);
       return response.json();
     },
     onError: () => {

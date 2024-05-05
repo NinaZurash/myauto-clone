@@ -2,179 +2,29 @@
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
-import { useFetchCategories } from "@/services/useFetchCategories";
-import { useFetchManufacturers } from "@/services/useFetchManufacturers";
-import { useFetchProducts } from "@/services/useFetchProducts";
+import { useCategories } from "@/services/useCategories";
+import { useManufacturers } from "@/services/useManufacturers";
+import { useProducts } from "@/services/useProducts";
 
-export type Product = {
-  car_id: number;
-  status_id: number;
-  user_id: number;
-  dealer_user_id: number | null;
-  paid_add: number;
-  photo: string;
-  pic_number: number;
-  prod_year: number;
-  prod_month: number;
-  man_id: number;
-  car_model: string;
-  price: number;
-  price_usd: number;
-  first_deposit: number;
-  price_value: number;
-  fuel_type_id: number;
-  gear_type_id: number;
-  drive_type_id: number;
-  door_type_id: number;
-  color_id: number;
-  saloon_color_id: number;
-  cylinders: number;
-  car_run: number;
-  car_run_km: number;
-  car_run_dim: number;
-  engine_volume: number;
-  airbags: number;
-  abs: boolean;
-  esd: boolean;
-  el_windows: boolean;
-  conditioner: boolean;
-  leather: boolean;
-  disks: boolean;
-  nav_system: boolean;
-  central_lock: boolean;
-  hatch: boolean;
-  right_wheel: boolean;
-  alarm: boolean;
-  board_comp: boolean;
-  hydraulics: boolean;
-  chair_warming: boolean;
-  climat_control: boolean;
-  obstacle_indicator: boolean;
-  customs_passed: boolean;
-  client_name: string;
-  client_phone: number;
-  model_id: number;
-  location_id: number;
-  parent_loc_id: number;
-  tech_inspection: boolean;
-  checked_for_duplicates: boolean;
-  order_number: number;
-  stickers: null;
-  changable: boolean;
-  auction: boolean;
-  has_turbo: boolean;
-  for_rent: boolean;
-  rent_daily: boolean;
-  rent_purchase: boolean;
-  rent_insured: boolean;
-  rent_driver: boolean;
-  currency_id: number;
-  vehicle_type: number;
-  category_id: number;
-  vin: string;
-  user_type: null;
-  prom_color: number;
-  special_persons: boolean;
-  back_camera: boolean;
-  car_desc: string;
-  order_date: string;
-  video_url: string;
-  hp: number;
-  hours_used: number;
-  photo_ver: number;
-  checked: boolean;
-  lang_type_id: number;
-  el_starter: number;
-  start_stop: boolean;
-  trunk: boolean;
-  windshield: boolean;
-  inspected_in_greenway: boolean;
-  license_number: string;
-  words_checked: number;
-  is_payd: boolean;
-  condition_type_id: number;
-  primary_damage_type: number;
-  secondary_damage_type: number;
-  auction_has_key: number;
-  is_auction: number;
-  saloon_material_id: number;
-  map_lat: number;
-  map_long: number;
-  zoom: number;
-  predicted_price: string;
-  hdd: number;
-  map_title: string;
-  has_catalyst: number;
-  tmp: string;
-  views: number;
-  dealerId: null;
-  has_logo: null;
-  logo_ver: null;
-  active_ads: null;
-  dealer_title: string;
-  has_predicted_price: boolean;
-  pred_first_breakpoint: null;
-  pred_second_breakpoint: null;
-  pred_min_price: null;
-  pred_max_price: null;
-  comfort_features: number[];
-  daily_views: {
-    views: number;
-    product_id: number;
-    insert_Date: string;
-  };
-};
-
-export type Manufacturer = {
-  man_id: number;
-  man_name: string;
-  is_car: number;
-  is_spec: number;
-  is_moto: number;
-};
-
-export type Category = {
-  category_id: number;
-  category_type: number;
-  has_icon: number;
-  title: string;
-  seo_title: string;
-  vehicle_types: number[];
-};
-
-export type Model = {
-  model_id: string;
-  man_id: string;
-  model_name: string;
-  model_group: string;
-  sort_order: number;
-  cat_man_id: string;
-  cat_model_id: string;
-  cat_modif_id: string;
-  is_car: boolean;
-  is_moto: boolean;
-  is_spec: boolean;
-  show_in_salons: string;
-  shown_in_slider: string;
-};
+import type { Category, Manufacturer, Product } from "./types";
 
 type ProductsContextType = {
   products: Product[];
   isLoading: boolean;
   periodFilter: string;
-  setPeriodFilter: (value: string) => void;
   sortOrder: number;
-  setSortOrder: (value: number) => void;
   categories: Category[];
   manufacturers: Manufacturer[];
   manFilter: string;
   catFilter: string;
+  forRent: number;
+  totalItems: number;
+  priceFromTo: [number | "", number | ""];
+  setSortOrder: (value: number) => void;
   setManFilter: (value: string) => void;
   setCatFilter: (value: string) => void;
-  totalItems: number;
-  forRent: number;
+  setPeriodFilter: (value: string) => void;
   setForRent: (value: number) => void;
-  priceFromTo: [number | "", number | ""];
   setPriceFromTo: (value: [number | "", number | ""]) => void;
 };
 
@@ -182,20 +32,20 @@ const ProductsContext = createContext<ProductsContextType>({
   products: [],
   isLoading: false,
   periodFilter: "3h",
-  setPeriodFilter: () => {},
   sortOrder: 3,
-  setSortOrder: () => {},
   categories: [],
   manufacturers: [],
   manFilter: "",
   catFilter: "",
-  setManFilter: () => {},
-  setCatFilter: () => {},
+  priceFromTo: [0, ""],
   totalItems: 0,
   forRent: 0,
   setForRent: () => {},
-  priceFromTo: [0, ""],
+  setManFilter: () => {},
+  setSortOrder: () => {},
+  setCatFilter: () => {},
   setPriceFromTo: () => {},
+  setPeriodFilter: () => {},
 });
 
 type Props = { children: ReactNode };
@@ -209,9 +59,9 @@ export const ProductsProvider = ({ children }: Props) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [manufacturers, setManufacturers] = useState<Manufacturer[]>([]);
   const [forRent, setForRent] = useState<number>(0);
-  const { mutateAsync, isPending } = useFetchProducts();
-  const { mutateAsync: fetchCategories } = useFetchCategories();
-  const { mutateAsync: fetchManufacturers } = useFetchManufacturers();
+  const { mutateAsync, isPending } = useProducts();
+  const { mutateAsync: fetchCategories } = useCategories();
+  const { mutateAsync: fetchManufacturers } = useManufacturers();
   const [totalItems, setTotalItems] = useState<number>(0);
   const [priceFromTo, setPriceFromTo] = useState<[number | "", number | ""]>([0, ""]);
 
@@ -270,6 +120,6 @@ export const ProductsProvider = ({ children }: Props) => {
   return <ProductsContext.Provider value={values}>{children}</ProductsContext.Provider>;
 };
 
-export const useProducts = () => {
+export const useProductsContext = () => {
   return useContext(ProductsContext);
 };

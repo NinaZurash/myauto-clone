@@ -1,12 +1,14 @@
 "use client";
 
 import { Fragment, useEffect, useState } from "react";
-import Card from "./Card";
-import { useProducts } from "@/providers/ProductsProvider";
-import CardMobile from "./CardMobile";
+
+import { useProductsContext } from "@/providers/ProductsProvider";
+
+import Card from "../card/Card";
+import CardMobile from "../card/CardMobile";
 
 export default function ProductsListing() {
-  const { products, isLoading } = useProducts();
+  const { products, isLoading } = useProductsContext();
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -21,7 +23,7 @@ export default function ProductsListing() {
 
   if (isLoading) {
     return (
-      <div className="size-full flex items-center justify-center">
+      <div className="flex size-full items-center justify-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -32,7 +34,7 @@ export default function ProductsListing() {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className={"animate-spin mt-64 sm:mt-0"}
+          className={"mt-64 animate-spin sm:mt-0"}
         >
           <path d="M21 12a9 9 0 1 1-6.219-8.56" />
         </svg>
@@ -44,11 +46,7 @@ export default function ProductsListing() {
       {products.length > 0 &&
         products.map((product) => (
           <Fragment key={product.car_id}>
-            {width > 768 ? (
-              <Card product={product} />
-            ) : (
-              <CardMobile product={product} />
-            )}
+            {width > 768 ? <Card product={product} /> : <CardMobile product={product} />}
           </Fragment>
         ))}
     </div>

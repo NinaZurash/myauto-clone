@@ -1,17 +1,17 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-import { useProducts, type Model, type Product } from "@/providers/ProductsProvider";
-import { useFetchModels } from "@/services/useFetchModels";
+import { useProductsContext } from "@/providers/ProductsProvider";
+import type { Model, Product } from "@/providers/types";
+import { useModels } from "@/services/useModels";
 
 import CardFooter from "./CardFooter";
 import CardHeader from "./CardHeader";
 import CardParameters from "./CardParameters";
 
 export default function Card({ product }: { product: Product }) {
-  const { mutateAsync } = useFetchModels();
-  const { manufacturers } = useProducts();
-  const man = manufacturers.find((man) => man.man_id.toString() === product.man_id.toString());
+  const { mutateAsync } = useModels();
+  const { manufacturers } = useProductsContext();
   const [modelType, setModelType] = useState<string>("");
 
   useEffect(() => {
@@ -27,6 +27,9 @@ export default function Card({ product }: { product: Product }) {
     };
     fetchModels();
   }, [mutateAsync, product.man_id, product.model_id]);
+
+  const man = manufacturers.find((man) => man.man_id.toString() === product.man_id.toString());
+
   return (
     <div className="flex w-full flex-col gap-2 rounded-md bg-white p-4">
       <div className="flex gap-4">

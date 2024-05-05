@@ -1,6 +1,6 @@
-import { type Product } from "@/providers/ProductsProvider";
+import type { Product } from "@/providers/types";
 
-import { Badge } from "./ui/badge";
+import { Badge } from "../ui/badge";
 
 export default function CardFilterStatus({ product }: { product: Product }) {
   return product.customs_passed ? (

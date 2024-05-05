@@ -3,14 +3,15 @@ import { Icons } from "@/Icons";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-import { useProducts, type Model, type Product } from "@/providers/ProductsProvider";
-import { useFetchModels } from "@/services/useFetchModels";
+import { useProductsContext } from "@/providers/ProductsProvider";
+import type { Model, Product } from "@/providers/types";
+import { useModels } from "@/services/useModels";
 
 import CardFilterStatus from "./CardFilterStatus";
 
 export default function Card({ product }: { product: Product }) {
-  const { mutateAsync } = useFetchModels();
-  const { manufacturers } = useProducts();
+  const { mutateAsync } = useModels();
+  const { manufacturers } = useProductsContext();
   const man = manufacturers.find((man) => man.man_id.toString() === product.man_id.toString());
   const [modelType, setModelType] = useState<string>("");
 

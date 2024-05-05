@@ -1,6 +1,6 @@
 import { Icons } from "@/Icons";
 
-import { type Product } from "@/providers/ProductsProvider";
+import type { Product } from "@/providers/types";
 
 export default function CardParameters({ product }: { product: Product }) {
   return (

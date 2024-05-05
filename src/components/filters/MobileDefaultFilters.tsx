@@ -1,18 +1,19 @@
-import { Badge } from "./ui/badge";
 import { Cross2Icon } from "@radix-ui/react-icons";
+
+import { Badge } from "../ui/badge";
 
 const filters = ["განბაჟება", "იყიდება", "საქართველო", "2012"];
 
 export default function MobileDefaultFilters() {
   return (
-    <div className="flex lg:hidden gap-2 items-center m-4 overflow-x-hidden">
+    <div className="m-4 flex items-center gap-2 overflow-x-hidden lg:hidden">
       {filters.map((filter) => (
         <Badge
-          className="bg-white font-light items-center flex p-2 text-black text-xs gap-2"
+          className="flex items-center gap-2 bg-white p-2 text-xs font-light text-black"
           key={filter}
         >
           <span> {filter}</span>
-          <div className="rounded-full p-[3px] bg-background">
+          <div className="rounded-full bg-background p-[3px]">
             <Cross2Icon width="10px" height="10px" />
           </div>
         </Badge>

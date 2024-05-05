@@ -5,12 +5,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useProducts } from "@/providers/ProductsProvider";
+import { useProductsContext } from "@/providers/ProductsProvider";
 
 const filterValues = [1, 3, 6, 12, 24];
 
 export default function FilterByTime() {
-  const { periodFilter, setPeriodFilter } = useProducts();
+  const { periodFilter, setPeriodFilter } = useProductsContext();
   return (
     <div>
       <Select
