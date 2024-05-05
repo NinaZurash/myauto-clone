@@ -7,7 +7,7 @@ import CardMobile from "./CardMobile";
 export default function ProductsListingMobile() {
   const { products, isLoading, totalItems } = useProducts();
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="lg:hidden">Loading...</div>;
   }
   return (
     <div className="lg:hidden flex flex-1 flex-col lg:gap-4">

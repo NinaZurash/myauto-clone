@@ -1,10 +1,8 @@
 import { Icons } from "@/Icons";
-import Card from "@/components/Card";
 import FilterMenu from "@/components/FilterMenu";
 import MobileDefaultFilters from "@/components/MobileDefaultFilters";
-import ProductListingMobile from "@/components/ProductListingMobile";
+import ProductListingFilter from "@/components/ProductListingFilter";
 import ProductsListing from "@/components/ProductsListing";
-import { ChevronRight } from "lucide-react";
 
 export default function Home() {
   return (
@@ -20,8 +18,10 @@ export default function Home() {
       </div>
       <div className="flex w-full gap-6">
         <FilterMenu />
-        <ProductsListing />
-        <ProductListingMobile />
+        <div className="flex-1 flex-col gap-4">
+          <ProductListingFilter />
+          <ProductsListing />
+        </div>
       </div>
     </section>
   );
