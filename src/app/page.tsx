@@ -2,6 +2,7 @@ import { Icons } from "@/Icons";
 import Card from "@/components/Card";
 import FilterMenu from "@/components/FilterMenu";
 import MobileDefaultFilters from "@/components/MobileDefaultFilters";
+import ProductListingMobile from "@/components/ProductListingMobile";
 import ProductsListing from "@/components/ProductsListing";
 import { ChevronRight } from "lucide-react";
 
@@ -10,7 +11,7 @@ export default function Home() {
     <section className="flex flex-col w-full">
       <MobileDefaultFilters />
 
-      <div className="text-[#6F7383] text-xs hidden sm:flex  my-6 items-center">
+      <div className="text-[#6F7383] hidden lg:flex text-xs  my-6 items-center">
         <span>მთავარი</span>
         <div>{Icons.rightArrow}</div>
         <span>ძიება</span>
@@ -20,6 +21,7 @@ export default function Home() {
       <div className="flex w-full gap-6">
         <FilterMenu />
         <ProductsListing />
+        <ProductListingMobile />
       </div>
     </section>
   );

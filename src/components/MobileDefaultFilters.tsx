@@ -5,7 +5,7 @@ const filters = ["განბაჟება", "იყიდება", "სა
 
 export default function MobileDefaultFilters() {
   return (
-    <div className="flex sm:hidden gap-2 items-center m-4 overflow-x-hidden">
+    <div className="flex lg:hidden gap-2 items-center m-4 overflow-x-hidden">
       {filters.map((filter) => (
         <Badge
           className="bg-white font-light items-center flex p-2 text-black text-xs gap-2"

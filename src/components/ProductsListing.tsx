@@ -13,7 +13,7 @@ export default function ProductsListing() {
     return <div>Loading...</div>;
   }
   return (
-    <div className="flex flex-1 flex-col gap-4">
+    <div className="hidden lg:flex flex-1 flex-col gap-4">
       <div className="flex justify-between">
         <span className="text-base text-[#272A37]">
           {totalItems} განცხადება

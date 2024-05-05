@@ -46,7 +46,7 @@ export default function FilterMenu() {
   };
 
   return (
-    <div className="text-xs rounded-lg block flex-col border h-[525px] w-[250px] rounded-t-xl overflow-hidden bg-white">
+    <div className="hidden lg:block text-xs rounded-lg flex-col border h-[525px] w-[250px] rounded-t-xl overflow-hidden bg-white">
       <div className="flex w-full items-center">
         {filterButtons.map((icon, i) => (
           <AutoButtons
