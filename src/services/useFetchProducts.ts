@@ -13,11 +13,11 @@ export function useFetchProducts() {
       manFilter: string;
       catFilter: string;
       forRent: number;
+      priceFromTo: [number | "", number | ""];
     }) => {
       const response = await fetch(
-        `${SITE_ROUTES.base}/api/products?SortOrder=${payload.sortOrder}&Period=${payload.periodFilter}&Mans=${payload.manFilter}&Cats=${payload.catFilter}&ForRent=${payload.forRent}`
+        `${SITE_ROUTES.base}/api/products?SortOrder=${payload.sortOrder}&Period=${payload.periodFilter}&Mans=${payload.manFilter}&Cats=${payload.catFilter}&ForRent=${payload.forRent}&PriceFrom=${payload.priceFromTo[0]}&PriceTo=${payload.priceFromTo[1]}`
       );
-
       return response.json();
     },
     onError: () => {

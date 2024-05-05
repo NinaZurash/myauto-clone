@@ -2,7 +2,7 @@
 
 import { Icons } from "@/Icons";
 import { Button } from "./ui/button";
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 
 import {
   Select,
@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils";
 import { useProducts } from "@/providers/ProductsProvider";
 import { Input } from "./ui/input";
 import FilterPrice from "./FilterPrice";
+import { useFetchProducts } from "@/services/useFetchProducts";
 
 const filterButtons = [Icons.car, Icons.tractor, Icons.motorcycle];
 
@@ -24,11 +25,26 @@ export default function FilterMenu() {
     manufacturers,
     setManFilter,
     setCatFilter,
-    manFilter,
-    catFilter,
     forRent,
     setForRent,
+    setPriceFromTo,
   } = useProducts();
+
+  // State variables for storing selected values
+  const [selectedForRent, setSelectedForRent] = useState(forRent.toString());
+  const [selectedManufacturer, setSelectedManufacturer] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [priceFromToLocal, setPriceFromToLocal] = useState<
+    [number | "", number | ""]
+  >([0, ""]);
+
+  const applyFilters = () => {
+    setForRent(Number(selectedForRent));
+    setManFilter(selectedManufacturer);
+    setCatFilter(selectedCategory);
+    setPriceFromTo(priceFromToLocal);
+  };
+
   return (
     <div className="text-xs rounded-lg block flex-col border h-[525px] w-[250px] rounded-t-xl overflow-hidden bg-white">
       <div className="flex w-full items-center">
@@ -44,8 +60,8 @@ export default function FilterMenu() {
         <div className="flex flex-col gap-2">
           <span>გარირების ტიპი</span>
           <Select
-            defaultValue={forRent.toString()}
-            onValueChange={(value) => setForRent(Number(value))}
+            defaultValue={selectedForRent}
+            onValueChange={(value) => setSelectedForRent(value)}
           >
             <SelectTrigger className="bg-white">
               <SelectValue placeholder="იყიდება" />
@@ -60,13 +76,11 @@ export default function FilterMenu() {
         <div className="flex flex-col gap-2">
           <span>მწარმოებელი</span>
           <Select
-            defaultValue={manFilter === "" ? undefined : manFilter}
-            onValueChange={(value) => {
-              setManFilter(value);
-            }}
+            defaultValue={selectedManufacturer}
+            onValueChange={(value) => setSelectedManufacturer(value)}
           >
             <SelectTrigger className="bg-white">
-              <SelectValue placeholder={manFilter === "" && "ყველა"} />
+              <SelectValue placeholder="ყველა" />
             </SelectTrigger>
             <SelectContent>
               {manufacturers.map((man) => (
@@ -80,15 +94,11 @@ export default function FilterMenu() {
         <div className="flex flex-col gap-2">
           <span>კატეგორია</span>
           <Select
-            defaultValue={catFilter === "" ? undefined : catFilter}
-            onValueChange={(value) => {
-              setCatFilter(value);
-            }}
+            defaultValue={selectedCategory}
+            onValueChange={(value) => setSelectedCategory(value)}
           >
             <SelectTrigger className="bg-white">
-              <SelectValue
-                placeholder={catFilter === "" && "ყველა კატეგორია"}
-              />
+              <SelectValue placeholder="ყველა კატეგორია" />
             </SelectTrigger>
             <SelectContent>
               {categories.map((category) => (
@@ -103,9 +113,15 @@ export default function FilterMenu() {
           </Select>
         </div>
       </div>
-      <FilterPrice />
+      <FilterPrice
+        priceFromToLocal={priceFromToLocal}
+        setPriceFromToLocal={setPriceFromToLocal}
+      />
       <div className="flex  py-4 mt-10 bg-white  text-sm border-t flex-col w-full items-center">
-        <Button className="bg-[#FD4100] hover:bg-[#FD4100] h-8 px-14">
+        <Button
+          onClick={applyFilters}
+          className="bg-[#FD4100] hover:bg-[#FD4100] h-8 px-14"
+        >
           ძებნა 197,963
         </Button>
       </div>

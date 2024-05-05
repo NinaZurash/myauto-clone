@@ -180,6 +180,8 @@ type ProductsContextType = {
   models: Model[];
   forRent: number;
   setForRent: (value: number) => void;
+  priceFromTo: [number | "", number | ""];
+  setPriceFromTo: (value: [number | "", number | ""]) => void;
 };
 
 const ProductsContext = createContext<ProductsContextType>({
@@ -199,6 +201,8 @@ const ProductsContext = createContext<ProductsContextType>({
   models: [],
   forRent: 0,
   setForRent: () => {},
+  priceFromTo: [0, ""],
+  setPriceFromTo: () => {},
 });
 
 type Props = { children: ReactNode };
@@ -217,6 +221,10 @@ export const ProductsProvider = ({ children }: Props) => {
   const { mutateAsync: fetchCategories } = useFetchCategories();
   const { mutateAsync: fetchManufacturers } = useFetchManufacturers();
   const [totalItems, setTotalItems] = useState<number>(0);
+  const [priceFromTo, setPriceFromTo] = useState<[number | "", number | ""]>([
+    0,
+    "",
+  ]);
 
   useEffect(() => {
     const fetchAllCategories = async () => {
@@ -241,12 +249,13 @@ export const ProductsProvider = ({ children }: Props) => {
         manFilter,
         catFilter,
         forRent,
+        priceFromTo,
       });
       setTotalItems(data.data.meta.total);
       setProducts(data.data.items);
     };
     fetchProducts();
-  }, [sortOrder, periodFilter, manFilter, catFilter, forRent]);
+  }, [sortOrder, periodFilter, manFilter, catFilter, forRent, priceFromTo]);
 
   const values = {
     products,
@@ -265,6 +274,8 @@ export const ProductsProvider = ({ children }: Props) => {
     models,
     forRent,
     setForRent,
+    priceFromTo,
+    setPriceFromTo,
   };
 
   return (

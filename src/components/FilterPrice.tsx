@@ -1,7 +1,13 @@
 import { Icons } from "@/Icons";
 import { Input } from "./ui/input";
 
-export default function FilterPrice() {
+export default function FilterPrice({
+  priceFromToLocal,
+  setPriceFromToLocal,
+}: {
+  priceFromToLocal: [number | "", number | ""];
+  setPriceFromToLocal: (value: [number | "", number | ""]) => void;
+}) {
   return (
     <div className="flex px-6 justify-between  flex-col">
       <div className="flex py-3 items-center justify-between">
@@ -13,12 +19,23 @@ export default function FilterPrice() {
       <div className="flex gap-2">
         <Input
           onChange={(event) => {
-            console.log(event.target.value);
+            setPriceFromToLocal([
+              Number(event.target.value),
+              priceFromToLocal[1],
+            ]);
           }}
           type="number"
         ></Input>
         <span className="items-center flex">{Icons.dash}</span>
-        <Input type="number"></Input>
+        <Input
+          onChange={(event) => {
+            setPriceFromToLocal([
+              priceFromToLocal[0],
+              Number(event.target.value),
+            ]);
+          }}
+          type="number"
+        ></Input>
       </div>
     </div>
   );
