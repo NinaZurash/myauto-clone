@@ -245,7 +245,7 @@ export const ProductsProvider = ({ children }: Props) => {
       setProducts(data.data.items);
     };
     fetchProducts();
-  }, [sortOrder, periodFilter, manFilter, catFilter, forRent, priceFromTo]);
+  }, [sortOrder, periodFilter, manFilter, catFilter, forRent, priceFromTo, mutateAsync]);
 
   const values = {
     products,
