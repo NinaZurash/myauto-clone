@@ -13,11 +13,13 @@ export default function ProductsListing() {
 
   useEffect(() => {
     const handleResize = () => {
-      setWidth(window.innerWidth);
+      window && setWidth(window.innerWidth);
     };
-    window.addEventListener("resize", handleResize);
+
+    window?.addEventListener("resize", handleResize);
+
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window?.removeEventListener("resize", handleResize);
     };
   }, []);
 
