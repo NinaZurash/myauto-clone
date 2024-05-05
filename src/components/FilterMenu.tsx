@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { useProducts } from "@/providers/ProductsProvider";
+import { Input } from "./ui/input";
+import FilterPrice from "./FilterPrice";
 
 const filterButtons = [Icons.car, Icons.tractor, Icons.motorcycle];
 
@@ -101,19 +103,11 @@ export default function FilterMenu() {
           </Select>
         </div>
       </div>
-      <div className="flex justify-between flex-col">
-        <div className="flex p-6 items-center justify-between">
-          <span className="text-[13px]">ფასი</span>
-          <div className="flex gap-3 w-fit border rounded-3xl items-center">
-            <span className="">{Icons.currency}</span>
-          </div>
-        </div>
-
-        <div className="flex mt-12 pt-4 text-sm border-t flex-col w-full items-center">
-          <Button className="bg-[#FD4100] hover:bg-[#FD4100] w-52">
-            ძებნა 197,963
-          </Button>
-        </div>
+      <FilterPrice />
+      <div className="flex  py-4 mt-10 bg-white  text-sm border-t flex-col w-full items-center">
+        <Button className="bg-[#FD4100] hover:bg-[#FD4100] h-8 px-14">
+          ძებნა 197,963
+        </Button>
       </div>
     </div>
   );
