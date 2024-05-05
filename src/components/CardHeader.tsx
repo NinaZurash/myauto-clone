@@ -26,7 +26,9 @@ export default function CardHeader({
             <span className="text-[#FF3B30]">2,176 ლ</span>
           </div>
         )}
-        <span>{Icons.cardFlags.GEO}</span>
+        <span>
+          <Icons.cardFlags.GEO />
+        </span>
         <span>რუსთავის ავტო</span>
       </div>
     </div>

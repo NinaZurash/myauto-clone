@@ -11,7 +11,7 @@ export default function CardParameters({ product }: { product: Product }) {
           <Parameter icon={Icons.avtomatic} title={"ავტომატიკა"} />
         </div>
         <div className="flex-col flex gap-2">
-          <Parameter icon={Icons.speed} title={product.car_run_km + ""} />
+          <Parameter icon={Icons.speed} title={product.car_run_km + " კმ"} />
           <Parameter
             icon={Icons.sache}
             title={product.right_wheel ? "მარჯვენა" : "მარცხენა"}
