@@ -26,7 +26,7 @@ export default function Card({ product }: { product: Product }) {
       );
     };
     fetchModels();
-  }, []);
+  }, [mutateAsync, product.man_id, product.model_id]);
   return (
     <div className="flex w-full flex-col gap-2 rounded-md bg-white p-4">
       <div className="flex gap-4">

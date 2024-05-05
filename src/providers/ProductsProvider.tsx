@@ -226,6 +226,7 @@ export const ProductsProvider = ({ children }: Props) => {
     };
     fetchAllManufacturers();
     fetchAllCategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

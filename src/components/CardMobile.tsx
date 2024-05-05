@@ -40,7 +40,7 @@ export default function Card({ product }: { product: Product }) {
       );
     };
     fetchModels();
-  }, []);
+  }, [mutateAsync, product.man_id, product.model_id]);
   return (
     <div className="w-full  bg-white">
       <div className="flex flex-col gap-3 p-4">
