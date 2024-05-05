@@ -46,7 +46,7 @@ export default function ProductsListing() {
     );
   }
   return (
-    <div className="flex w-full flex-col gap-4">
+    <div className="flex w-full flex-col lg:gap-4">
       {products.length > 0 &&
         products.map((product) => (
           <Fragment key={product.car_id}>
