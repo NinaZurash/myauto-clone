@@ -9,11 +9,11 @@ import CardMobile from "../card/CardMobile";
 
 export default function ProductsListing() {
   const { products, isLoading } = useProductsContext();
-  const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState(0);
 
   useEffect(() => {
     const handleResize = () => {
-      window && setWidth(window.innerWidth);
+      setWidth(window?.innerWidth);
     };
 
     window?.addEventListener("resize", handleResize);
