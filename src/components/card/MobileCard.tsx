@@ -9,7 +9,7 @@ import { useModels } from "@/services/useModels";
 
 import CardFilterStatus from "./CardFilterStatus";
 
-export default function Card({ product }: { product: Product }) {
+export default function MobileCard({ product }: { product: Product }) {
   const { mutateAsync } = useModels();
   const { manufacturers } = useProductsContext();
   const man = manufacturers.find((man) => man.man_id.toString() === product.man_id.toString());

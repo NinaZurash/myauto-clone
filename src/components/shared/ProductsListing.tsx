@@ -5,7 +5,7 @@ import { Fragment, useEffect, useState } from "react";
 import { useProductsContext } from "@/providers/ProductsProvider";
 
 import Card from "../card/Card";
-import CardMobile from "../card/CardMobile";
+import MobileCard from "../card/MobileCard";
 
 export default function ProductsListing() {
   const { products, isLoading } = useProductsContext();
@@ -50,7 +50,7 @@ export default function ProductsListing() {
       {products.length > 0 &&
         products.map((product) => (
           <Fragment key={product.car_id}>
-            {width > 768 ? <Card product={product} /> : <CardMobile product={product} />}
+            {width > 768 ? <Card product={product} /> : <MobileCard product={product} />}
           </Fragment>
         ))}
     </div>
